@@ -1,0 +1,28 @@
+//- 추후 수정과 삭제 구현하기
+extends ../layout
+
+block content
+  .container
+     h1 회원 목록
+
+     .panel.panel-default
+        .panel-heading 가입한 회원들의 계정 목록
+    
+        table.table
+            thead
+                tr
+                    th 닉네임
+                    th 이메일
+                    th 가입일시
+             tbody
+                each user in users
+                    tr
+                        td=user.nickname
+                        td=user.email
+                        td=moment(user.date).format('YYYY년 MM월 DD일 HH:mm:ss')
+                         td
+                            a.btn.btn-xs.btn-default(href='/users/#{user._id}/edit') 수정
+                            | 
+                            a.btn.btn-xs.btn-default(href='/users/#{user._id}?_method=DELETE') 삭제
+      button.btn.btn-default(type="button")
+       a(href="/new") 회원 추가

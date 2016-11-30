@@ -1,0 +1,52 @@
+//- guestbook에서의 게시판처럼 만들어서 예약 가능하게 하기
+//- ajax를 이용하여 국가와 도시 자동 완성 만들기
+
+extends ../layout
+
+block content
+ 
+  .container
+     h2 예약하기
+
+     form.form(action='/host/nationsearch?_method=GET', method='POST' id='search')
+        .input-group
+          span.input-group-addon(id="basic-addon3") 여행국가 
+          input.form-control(type='text', name='nation' id='nation', placeholder='Type travel nation')
+          ul.suggestnation
+          span.input-group-btn
+            button.btn.btn-default(type="submit") 검색하기
+
+     form.form(action='/host/citysearch?_method=GET', method='POST' id='search')
+        .input-group
+          span.input-group-addon(id="basic-addon3") 여행도시 
+          input.form-control(type='text', name='city' id='city', placeholder='Type travel city')
+          ul.suggestcity
+          span.input-group-btn
+            button.btn.btn-default(type="submit") 검색하기
+     br 
+
+     .panel.panel-default
+        .panel-heading 호스트가 올린 숙소 예약
+
+        table.table
+            thead
+                tr
+                    th 호스트명
+                    th 숙소
+                    th 국가
+                    th 도시
+                    th 등록일 
+            tbody
+              each host in hosts
+                if(host.nickname!=currentUser.nickname)
+                  tr
+                      td=host.nickname
+                      td
+                        a(href='/host/#{host.id}')=host.title
+                      td=host.nation
+                      td=host.city
+
+                      td=moment(host.date).format('YYYY년 MM월 DD일 HH:mm:ss')
+
+
+      script(src= '/javascripts/autocomplete.js')    

@@ -1,0 +1,13 @@
+.container
+    ol.breadcrumb
+        li
+            a(href="/mypage/profile") 프로필
+        li
+            a(href="/mypage/host_list/#{currentUser.nickname}") 내가 올린 숙소 목록
+        li
+            a(href="/mypage/reservation_list/#{currentUser.nickname}") 내가 예약한 숙소 
+        li
+            a(href="/mypage/reserved/#{currentUser.nickname}") 예약된 나의 숙소 목록 
+ 
+//-  예약을 하면 내가 예약한 숙소에서 볼 수 있도록 한다.
+            

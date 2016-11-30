@@ -1,0 +1,27 @@
+extends ../layout
+
+block head
+    include mypage
+block content
+  .container
+     h1 내가 예약한 숙소 목록
+
+    .panel.panel-default
+        .panel-heading 내가 예약한 숙소 목록
+    
+        table.table
+            thead
+                tr
+                    th 호스트 이름
+                    th 제목
+                    th 예약일
+            tbody
+            each reservation in reservations
+                if(reservation.guest == currentUser.nickname)
+                    tr
+                        td= reservation.host
+                        td
+                            a(href='/host/reservation/#{reservation.id}')=reservation.title
+                        td= moment(reservation.date).format('YYYY년 MM월 DD일 HH:mm:ss')
+                        td
+                            a.btn.btn-xs.btn-default(href="/mypage/cancel/#{reservation.id}?_method=DELETE") 예약 취소

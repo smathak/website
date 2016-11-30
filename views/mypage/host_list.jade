@@ -1,0 +1,32 @@
+extends ../layout
+
+block head
+    include mypage
+block content
+  .container
+     h1 내가 올린 숙소 목록
+
+    .panel.panel-default
+        .panel-heading 내가 호스팅한 숙소 목록
+    
+        table.table
+            thead
+                tr
+                    th 호스트 이름
+                    th 제목
+                    th 국가
+                    th 도시
+                    th 등록일 
+            tbody
+            each host in hosts
+                if(host.nickname == currentUser.nickname)
+                    tr
+                        td= host.nickname
+                        td
+                            a(href='/host/#{host.id}')=host.title
+                        td= host.nation
+                        td= host.city
+                        td= moment(host.date).format('YYYY년 MM월 DD일 HH:mm:ss')
+                        td
+                          a.btn.btn-xs.btn-default(href='/host/edit/#{host.id}') 호스팅 수정
+                          a.btn.btn-xs.btn-default(href='/host/cancel/#{host.id}?_method=DELETE') 호스팅 취소

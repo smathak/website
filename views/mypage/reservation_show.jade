@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+  .container
+    h1= reservation.title
+
+    .list-group
+      a.list-group-item.active(href="#") 
+        h4.list-group-item-heading 예약 상세 정보
+      a.list-group-item(href="#{reservation.hostid}/show") 
+        h4.list-group-item-heading 숙소
+        p.list-group-item-text #{reservation.title}
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 도시
+        p.list-group-item-text #{reservation.city}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 주소
+        p.list-group-item-text #{reservation.address}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading checkin 날짜
+        p.list-group-item-text #{reservation.checkin}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading checkout 날짜
+        p.list-group-item-text #{reservation.checkout}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 숙박 인원
+        p.list-group-item-text #{reservation.number}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 호스트
+        p.list-group-item-text #{reservation.host} 
+       a.list-group-item(href="#") 
+        h4.list-group-item-heading 게스트
+        p.list-group-item-text #{reservation.guest} 
+       a.list-group-item(href="#") 
+        h4.list-group-item-heading 예약 요청 결과
+        if(reservation.answer)
+           p.list-group-item-text #{reservation.answer}
+        else
+          p.list-group-item-text 아직 호스트가 응답하지 않았습니다. 
+        
+    
+
+    

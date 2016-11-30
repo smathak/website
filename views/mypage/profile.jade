@@ -1,0 +1,31 @@
+//-  프로필 수정 가능하게 만들기
+//- 수정하기 버튼을 클릭하면 수정하기 위한 페이지로 이동
+//- 프로필에서 탈퇴하기 버튼 만들기
+extends ../layout
+
+block head
+    include mypage
+block content
+    .container
+        h1 My profile
+
+        ul.list-group#profile
+            li.list-group-item.list-group-item-success Nickname: #{currentUser.nickname}
+            li.list-group-item.list-group-item-info EMail: #{currentUser.email}
+
+        div.form-actions
+        .btn-group(role="group" aria-label="...")
+                button.btn.btn-default(data-id=currentUser.id class="secession") 탈퇴하기
+
+    
+    //- 이 form에 제출
+    form#secessionForm(style='display:none', method="POST") 
+
+    script(type='text/javascript').
+      $(".secession").click(function(e) {
+        var id = $(e.currentTarget).data('id');
+        if (confirm('정말 탈퇴하시겠습니까?')) {
+          $("#secessionForm").attr('action', "/users/" + id + "?_method=DELETE").submit();          
+        }
+        return false;
+      });

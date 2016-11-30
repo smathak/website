@@ -1,0 +1,74 @@
+extends ../layout
+
+block content
+ .container
+    if host.id
+        h2 호스팅 수정
+    else
+        h2 호스팅 하기
+
+    h3 숙소 기본 정보를 입력하세요.
+
+    form(action= (host.id) ? '/host/#{host.id}?_method=PUT' : '/host', method='POST')
+        h4  
+        span.label.label-success 1. 호스트의 닉네임 
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="register" name="register" aria-describedby="basic-addon1" value=currentUser.nickname)
+        h4
+        span.label.label-success 2. 제목
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="title" name="title" placeholder="Title" aria-describedby="basic-addon1" value = host.title)
+
+        h4
+        span.label.label-success 3. 간단한 설명
+        .input-group
+                span.input-group-addon#basic-addon1 
+                textarea.form-control(id='explanation', rows='10', name='explanation', placeholder='Simple explanation')= host.explanation
+        
+        h4
+        span.label.label-success 4. 국가
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="nation" name="nation" placeholder="Nation" aria-describedby="basic-addon1" value= host.nation)
+                ul.suggestnation
+                
+        h4
+        span.label.label-success 5. 도시
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="city" name="city" placeholder="City" aria-describedby="basic-addon1" value= host.city)
+                ul.suggestcity
+
+        h4   
+        span.label.label-success 6. 주소
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="address" name="address" placeholder="Address" aria-describedby="basic-addon1" value= host.address)
+        h4
+        span.label.label-success 7. 숙소 요금
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="fare" name="fare" placeholder="Fare" aria-describedby="basic-addon1" value= host.fare)
+        h4  
+        span.label.label-success 8. 편의시설
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="facility" name="facility" placeholder="Facility" aria-describedby="basic-addon1" value= host.facility)
+        h4  
+        span.label.label-success 9. 이용 규칙
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="rule" name="rule" placeholder="Rule" aria-describedby="basic-addon1" value= host.rule)
+
+        //- 추후 이미지도 넣을 수 있게 하기
+
+        
+        div.form-actions
+        .btn-group(role="group" aria-label="...")
+                if host.id
+                  button.btn.btn-default(type="submit") 호스팅 수정
+                else
+                   button.btn.btn-default(type="submit") 호스팅 하기
+  script(src= '/javascripts/autocomplete.js')    

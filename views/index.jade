@@ -1,0 +1,25 @@
+extends layout
+
+block head
+  .jumbotron
+    .container
+      h1 OxygenBnb
+      p OxygenBnb에서 현지인의 숙소를 예약하실 수 있습니다. 
+
+ block  content
+    h3 추천 여행지
+    .row
+      .col-xs-6.col-md-3
+        a.thumbnail(href="#")
+          img(src="../images/seoul.jpg" alt="travel")
+      .col-xs-6.col-md-3
+        a.thumbnail(href="#")
+          img(src="../images/china.jpg" alt="travel")
+      .col-xs-6.col-md-3
+        a.thumbnail(href="#")
+            img(src="../images/greece.jpg" alt="travel")
+      .col-xs-6.col-md-3
+        a.thumbnail(href="#")
+            img(src="../images/japan.jpg" alt="travel")
+     
+ block footer

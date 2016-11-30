@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  .container
+    h1= host.title
+
+    .list-group
+      a.list-group-item.active(href="#") 
+        h4.list-group-item-heading 숙소 상세 정보
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 제목
+        p.list-group-item-text #{host.title}
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 간단한 설명
+        p.list-group-item-text #{host.explanation}
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 국가
+        p.list-group-item-text #{host.nation}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 도시
+        p.list-group-item-text #{host.city}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 주소
+        p.list-group-item-text #{host.address}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 숙소 요금
+        p.list-group-item-text #{host.fare}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 편의시설
+        p.list-group-item-text #{host.facility}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 이용 규칙
+        p.list-group-item-text #{host.rule}  
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 등록자
+        p.list-group-item-text #{host.nickname} 
+
+     if(currentUser.nickname != host.nickname)
+       button.btn.btn-default(type="button")
+          a(href="/host/process/#{host.id}") 예약하기
+
+    

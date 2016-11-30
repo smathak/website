@@ -1,0 +1,28 @@
+extends ../layout
+
+block head
+    include mypage
+block content
+  .container
+     h1 예약된 나의 숙소 목록 
+
+    .panel.panel-default
+        .panel-heading 게스트가 예약한 숙소 목록
+    
+        table.table
+            thead
+                tr
+                    th 게스트 이름
+                    th 제목
+                    th 예약일
+            tbody
+            each reservation in reservations
+                tr
+                    td= reservation.guest
+                    td
+                        a(href='/host/reservation/#{reservation.id}')=reservation.title
+                    td= moment(reservation.date).format('YYYY년 MM월 DD일 HH:mm:ss')
+                    td
+                        a.btn.btn-xs.btn-default(href="/mypage/permission/#{reservation.id}?_method=PUT") 승인
+                        | 
+                        a.btn.btn-xs.btn-default(href='/mypage/refusal/#{reservation.id}?_method=PUT') 거절

@@ -1,0 +1,78 @@
+extends ../layout
+
+block content
+ .container
+    h1 예약 절차 
+
+    form(action='/host/reservation', method='POST' id='process')
+        h3 예약자 정보
+        ul.list-group#profile
+            li.list-group-item.list-group-item-success(id="guest" name="guest" ) Nickname: #{currentUser.nickname}
+            input.form-control(type="hidden" id="guest" name="guest" aria-describedby="basic-addon1" value=currentUser.nickname)
+            li.list-group-item.list-group-item-info EMail: #{currentUser.email}
+            input.form-control(type="hidden" id="hostid" name="hostid" aria-describedby="basic-addon1" value= host.id)
+           
+
+        h3 예약 정보
+        span.label.label-success 호스트
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="host" name="host" aria-describedby="basic-addon1" value= host.nickname)
+
+        span.label.label-success 예약하고자 하는 숙소
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="title" name="title" aria-describedby="basic-addon1" value= host.title)
+
+        span.label.label-success 국가
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="nation" name="nation" aria-describedby="basic-addon1" value= host.nation)
+
+        span.label.label-success 도시
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="city" name="city" aria-describedby="basic-addon1" value= host.city)
+
+        span.label.label-success 주소
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type="text" id="address" name="address" aria-describedby="basic-addon1" value= host.address)
+              
+
+        h3 추가 입력 정보
+
+        span.label.label-success 체크인 날짜
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type='date', id='checkin', name='checkin')
+     
+        span.label.label-success 체크아웃 날짜
+        .input-group
+                span.input-group-addon#basic-addon1 
+                input.form-control(type='date', id='checkout', name='checkout')
+
+        span.label.label-success 숙박인원
+        .input-group
+             select.form-control(name='number')
+                .dropdown
+                    button.btn.btn-default.dropdown-toggle(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                        Dropdown 숙박인원
+                        span.caret
+                    ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                        li
+                            option(value="1") 1
+                        li
+                            option(value="2") 2
+                        li
+                            option(value="3") 3
+                        li
+                            option(value="4") 4
+                        li
+                            option(value="5") 5
+                            
+        div.form-actions
+            .btn-group(role="group" aria-label="...")
+                    button.btn.btn-default(type="submit") 예약하기
+
+    
