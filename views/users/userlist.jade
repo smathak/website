@@ -21,8 +21,8 @@ block content
                         td=user.email
                         td=moment(user.date).format('YYYY년 MM월 DD일 HH:mm:ss')
                          td
-                            a.btn.btn-xs.btn-default(href='/users/#{user._id}/edit') 수정
+                            a.btn.btn-xs.btn-default(href='/users/edit/#{user.id}') 수정
                             | 
-                            a.btn.btn-xs.btn-default(href='/users/#{user._id}?_method=DELETE') 삭제
+                            a.btn.btn-xs.btn-default(href='/users/delete/#{user.id}?_method=DELETE') 삭제
       button.btn.btn-default(type="button")
        a(href="/new") 회원 추가

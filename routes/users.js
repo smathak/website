@@ -25,7 +25,7 @@ function validateForm(form, options) {
   email = email.trim();
 
   if (!nickname) {
-    return '이름을 입력해주세요.';
+    return '닉네임을 입력해주세요.';
   }
 
   if (!email) {
@@ -101,6 +101,42 @@ router.delete('/:id', function(req, res, next){
       res.render('index'); // 탈퇴하고 메인으로 가기
    });
 });
+// 회원 리스트 삭제
+router.delete('/delete/:id', function(req, res, next){
+   User.findOneAndRemove({_id:req.params.id}, function(err, user){
+    if(err){
+      return next(err);
+     }
+      req.flash('success', '회원이 삭제되었습니다.');
+   });
+   User.find({}, function(err, next){
+     if(err){
+       return next
+     }
+   })
+});
 
+// 회원 정보 수정 창 띄우기
+router.get('/edit/:id', function(req, res, next){
+  User.findById({_id: req.params.id}, function(err, user){
+    res.render('users/new', {user:user});
+  });
+});
+
+// 회원정보 수정
+router.put('/:id', function(req, res, next){
+  User.findById({_id: req.params.id}, function(err, user){
+    user.nickname = req.body.nickname;
+    user.email = req.body.nickname;
+    user.password = req.body.password;
+    user.save(function(err){
+      if(err){
+        return next(err);
+      }
+      req.flash('success', '회원 정보가 수정되었습니다');
+      res.redirect('/');
+    });
+  })
+});
 
 module.exports = router;
