@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var Host = require('../models/Host');
 var User = require('../models/User');
+var Reservation = require('../models/Reservation');
 var _ = require('lodash');
 
 /* GET users listing. */
@@ -87,20 +89,21 @@ router.get('/signin', function(req, res, next) {
 // 회원 관리 목록 페이지 띄우기 
 router.get('/userlist', function(req, res, next) { 
  User.find({}, function(err, users){
-  res.render('users/userlist', {users : users}); 
+  res.render('users/userlist', {users : users, messages: req.flash()}); 
  });
 });
 
 // 회원 탈퇴 
-router.delete('/:id', function(req, res, next){
-  User.findOneAndRemove({_id:req.params.id}, function(err, user){
-    if(err){
-      return next(err);
-     }
+router.delete('/:nickname', function(req, res, next){
+    User.findOneAndRemove({nickname:req.params.nickname}, function(err, user){
+      if(err){
+        return next(err);
+      }
       req.flash('success', '탈퇴되었습니다.');
       res.render('index'); // 탈퇴하고 메인으로 가기
    });
 });
+
 // 회원 리스트 삭제
 router.delete('/delete/:id', function(req, res, next){
    User.findOneAndRemove({_id:req.params.id}, function(err, user){
@@ -109,10 +112,11 @@ router.delete('/delete/:id', function(req, res, next){
      }
       req.flash('success', '회원이 삭제되었습니다.');
    });
-   User.find({}, function(err, next){
+   User.find({}, function(err, users){
      if(err){
        return next
      }
+     res.render('users/userlist', {users: users});
    })
 });
 
@@ -126,10 +130,9 @@ router.get('/edit/:id', function(req, res, next){
 // 회원정보 수정
 router.put('/:id', function(req, res, next){
   User.findById({_id: req.params.id}, function(err, user){
-    user.nickname = req.body.nickname;
-    user.email = req.body.nickname;
+    user.email = req.body.email;
     user.password = req.body.password;
-    user.save(function(err){
+    user.save(function(err, user){
       if(err){
         return next(err);
       }

@@ -9,19 +9,30 @@ block content
      h1 Sign up
 
     form(action= user ? '/users/#{user.id}?_method=PUT' : '/users', method='POST')
-      .input-group.input-group-lg
-        span.input-group-addon#sizing-addon1 Nickname
-        input.form-control(type="text" id="nickname" name="nickname" placeholder="Nickname" aria-describedby="sizing-addon1", required)
-      .input-group.input-group-lg
-        span.input-group-addon#sizing-addon1 Email
-        input.form-control(type="email" id="email" name="email" placeholder="Email" aria-describedby="sizing-addon1", required)
-      if(!user)
+      if !user
+        .input-group.input-group-lg
+          span.input-group-addon#sizing-addon1 Nickname
+          input.form-control(type="text" id="nickname" name="nickname" placeholder="Nickname" aria-describedby="sizing-addon1", required)
+        .input-group.input-group-lg
+          span.input-group-addon#sizing-addon1 Email
+          input.form-control(type="email" id="email" name="email" placeholder="Email" aria-describedby="sizing-addon1", required)
         .input-group.input-group-lg 
           span.input-group-addon#sizing-addon1 Password
           input.form-control(type="password" id="password" name="password" placeholder="Password" aria-describedby="sizing-addon1", required)
         .input-group.input-group-lg
           span.input-group-addon#sizing-addon1 Password Confirmation
           input.form-control(type="password" id="password_confirmation" name="password_confirmation" placeholder="Password Confirmation" aria-describedby="sizing-addon1", required)
+       else
+        .input-group.input-group-lg
+          span.input-group-addon#sizing-addon1 Email
+          input.form-control(type="email" id="email" name="email" placeholder="Email" aria-describedby="sizing-addon1", required, value=user.email)
+        .input-group.input-group-lg 
+          span.input-group-addon#sizing-addon1 Password
+          input.form-control(type="password" id="password" name="password" placeholder="Password" aria-describedby="sizing-addon1", required)
+        .input-group.input-group-lg
+          span.input-group-addon#sizing-addon1 Password Confirmation
+          input.form-control(type="password" id="password_confirmation" name="password_confirmation" placeholder="Password Confirmation" aria-describedby="sizing-addon1", required)
+      
        div.form-actions
           .btn-group(role="group" aria-label="...")
           if !user
