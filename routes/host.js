@@ -287,4 +287,14 @@ router.delete('/cancel/:id', function(req, res, next){
 });
 
 
+router.get('/reservation/mypage/profile/:guest_nickname', function(req, res, next){
+    User.findOne({nickname: req.params.guest_nickname}, function(err, user){
+        if(err){
+            return next(err);
+        }
+        res.render('mypage/profile', {user: user});
+    });
+});
+
+
 module.exports = router;

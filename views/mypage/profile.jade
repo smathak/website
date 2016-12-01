@@ -7,15 +7,23 @@ block head
     include mypage
 block content
     .container
-        h1 My profile
+        if user
+            h1 Guest profile
+        else 
+            h1 My profile
 
         ul.list-group#profile
-            li.list-group-item.list-group-item-success Nickname: #{currentUser.nickname}
-            li.list-group-item.list-group-item-info EMail: #{currentUser.email}
-
-        div.form-actions
-        .btn-group(role="group" aria-label="...")
-                button.btn.btn-default(data-id=currentUser.id class="secession") 탈퇴하기
+            if user 
+                li.list-group-item.list-group-item-success Nickname: #{user.nickname}
+                li.list-group-item.list-group-item-info EMail: #{user.email}
+            else
+                li.list-group-item.list-group-item-success Nickname: #{currentUser.nickname}
+                li.list-group-item.list-group-item-info EMail: #{currentUser.email}
+            
+        if(!user)
+            div.form-actions
+            .btn-group(role="group" aria-label="...")
+                    button.btn.btn-default(data-id=currentUser.id class="secession") 탈퇴하기
 
     
     //- 이 form에 제출

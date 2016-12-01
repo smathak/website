@@ -5,6 +5,7 @@ block content
     h1= reservation.title
 
     .list-group
+  
       a.list-group-item.active(href="#") 
         h4.list-group-item-heading 예약 상세 정보
       a.list-group-item(href="#{reservation.hostid}/show") 
@@ -28,15 +29,15 @@ block content
       a.list-group-item(href="#") 
         h4.list-group-item-heading 호스트
         p.list-group-item-text #{reservation.host} 
-       a.list-group-item(href="#") 
-        h4.list-group-item-heading 게스트
-        p.list-group-item-text #{reservation.guest} 
-       a.list-group-item(href="#") 
+      a.list-group-item(href="#") 
         h4.list-group-item-heading 예약 요청 결과
         if(reservation.answer)
            p.list-group-item-text #{reservation.answer}
         else
           p.list-group-item-text 아직 호스트가 응답하지 않았습니다. 
+
+      a(href='mypage/profile/#{reservation.guest}')
+          h4.list-group-item-text #{reservation.guest}게스트 프로필 보기  
         
     
 
