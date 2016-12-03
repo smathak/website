@@ -254,6 +254,14 @@ router.get('/process/:id', function(req, res, next){
     });
 });
 
+// 즐겨 찾기에서 예약하는 절차 보여주는 페이지로 가기
+router.get('/process/favorite/:title', function(req, res, next){
+    Host.findOne({title : req.params.title}, function(err, host){
+        res.render('host/process', {host : host});
+    });
+});
+
+
 // 예약정보를 DB에 Create
 router.post('/reservation', function(req, res, next){
     var newReservation = new Reservation({
@@ -341,6 +349,7 @@ router.get('/reservation/mypage/profile/:guest_nickname', function(req, res, nex
     });
 });
 
+// 즐겨찾기 
 router.get('/favorite/:id', function(req, res, next){
     Favorite.findById({_id:req.params.id}, function(err, favorite){
         res.render('host/favorite_show', {favorite : favorite});

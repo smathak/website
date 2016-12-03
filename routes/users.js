@@ -3,6 +3,7 @@ var router = express.Router();
 var Host = require('../models/Host');
 var User = require('../models/User');
 var Reservation = require('../models/Reservation');
+var Favorite = require('../models/Favorite');
 var _ = require('lodash');
 
 /* GET users listing. */
@@ -99,8 +100,23 @@ router.delete('/:nickname', function(req, res, next){
       if(err){
         return next(err);
       }
+   });
+   Host.remove({nickname: req.params.nickname}, function(err){
+     if(err){
+       return next(err);
+     }
+   });
+   Reservation.remove({guest: req.params.nickname}, function(err){
+      if(err){
+        return next(err);
+      }
+   });
+    Favorite.remove({guest: req.params.nickname}, function(err){
+      if(err){
+        return next(err);
+      }
       req.flash('success', '탈퇴되었습니다.');
-      res.render('index'); // 탈퇴하고 메인으로 가기
+      res.redirect('/signout');
    });
 });
 

@@ -62,9 +62,9 @@ router.delete('/cancel/:id', function(req, res, next){
         if (err) {
           return next(err);
         }
-        req.flash('success', "예약을 취소하셨습니다.");
         Reservation.find({}, function(err, reservations){
-            res.render('mypage/reservation_list', {reservations : reservations});
+            req.flash('success', "예약을 취소하셨습니다.");
+            res.render('mypage/reservation_list', {reservations : reservations, messages:req.flash()});
         });
     });
 });
