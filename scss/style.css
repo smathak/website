@@ -42,14 +42,10 @@ span.label{
   display: inline-block;
 }
 
-.input-group{
-  margin-bottom: 2em;
-}
-
 .list-group#profile{
   width: 30%;
 }
 
 #process{
-  width: 50%
+  width: 50%;
 }

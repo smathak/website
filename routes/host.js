@@ -185,6 +185,7 @@ router.get('/citysearch', function(req ,res, next){
     });
 });
 
+
 // 호스팅 수정을 하기 위한 페이지로 가기
 router.get('/edit/:id', function(req, res, next){
    Host.findById({_id:req.params.id}, function(err, host){ // id별로찾음(해당 Document가 가지고 있는 id로 )
@@ -219,7 +220,7 @@ router.put('/:id', function(req, res, next){
 
 // 예약하기에서 호스팅 되어있는 글 보여주기
 router.get('/:id', function(req, res, error){
-    Host.findById({_id : req.params.id}, function(err, host){
+    Host.findByIdAndUpdate({_id : req.params.id}, {$inc: {readNum:1}}, function(err, host){
         res.render('host/show', {host : host, messages : req.flash()});
     }); 
 });
@@ -241,28 +242,33 @@ router.get('/process/:id', function(req, res, next){
 
 // 예약정보를 DB에 Create
 router.post('/reservation', function(req, res, next){
-     var newReservation = new Reservation({
-            guest : req.body.guest,
-            host : req.body.host,
-            nation: req.body.nation,
-            city : req.body.city,
-            address : req.body.address,
-            checkin : req.body.checkin,
-            checkout : req.body.checkout,
-            number : req.body.number,
-            title: req.body.title,
-            hostid: req.body.hostid,
-            date : req.body.date
-            // 이미지도 추가 예정
-        });
-      newReservation.save(function(err){
+    var newReservation = new Reservation({
+        guest : req.body.guest,
+        host : req.body.host,
+        nation: req.body.nation,
+        city : req.body.city,
+        address : req.body.address,
+        checkin : req.body.checkin,
+        checkout : req.body.checkout,
+        number : req.body.number,
+        title: req.body.title,
+        hostid: req.body.hostid,
+        date : req.body.date
+        // 이미지도 추가 예정
+    });
+    newReservation.save(function(err){
+        if(err){
+            return next(err);
+        }
+        Host.findByIdAndUpdate({_id: req.body.hostid}, {$inc: {reservedNum:1}}, function(err){
             if(err){
                 return next(err);
-            }else{
-                req.flash('success', '예약이 완료되었습니다. My Page에서 자신이 예약한 숙소를 볼 수 있습니다.');
-                res.redirect('/'); // 일단 메인으로 가고 나중에 my page로 이동하게 하기 
             }
         });
+        req.flash('success', '예약이 완료되었습니다. My Page에서 자신이 예약한 숙소를 볼 수 있습니다.');
+        res.redirect('/'); // 일단 메인으로 가고 나중에 my page로 이동하게 하기 
+    
+    });
 });
 
 // 호스트 페이지로 가기 

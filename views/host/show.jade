@@ -34,6 +34,10 @@ block content
       a.list-group-item(href="#") 
         h4.list-group-item-heading 등록자
         p.list-group-item-text #{host.nickname} 
+      a.list-group-item(href="#") 
+        h4.list-group-item-heading 예약 횟수
+        p.list-group-item-text #{host.reservedNum} 
+
 
      if(currentUser.nickname != host.nickname)
        button.btn.btn-default(type="button")

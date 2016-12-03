@@ -4,22 +4,60 @@ block head
   .jumbotron
     .container
       h1 OxygenBnb
-      p OxygenBnb에서 현지인의 숙소를 예약하실 수 있습니다. 
+      p OxygenBnb에서 현지인의 숙소를 예약하실 수 있습니다.     
 
  block  content
-    h3 추천 여행지
-    .row
-      .col-xs-6.col-md-3
-        a.thumbnail(href="#")
-          img(src="../images/seoul.jpg" alt="travel")
-      .col-xs-6.col-md-3
-        a.thumbnail(href="#")
-          img(src="../images/china.jpg" alt="travel")
-      .col-xs-6.col-md-3
-        a.thumbnail(href="#")
-            img(src="../images/greece.jpg" alt="travel")
-      .col-xs-6.col-md-3
-        a.thumbnail(href="#")
-            img(src="../images/japan.jpg" alt="travel")
-     
+   .container-fluid
+      form.form.index(action='/host/citysearch/#{currentUser.id}?_method=GET', method='POST')
+        .row
+           .col-xs-3.col-md-2
+              label 숙박인원
+              select.form-control(name='number')
+                  .dropdown
+                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                          li
+                              option(value="1") 1
+                          li
+                              option(value="2") 2
+                          li
+                              option(value="3") 3
+                          li
+                              option(value="4") 4
+                          li
+                              option(value="5") 5
+            .col-xs-4.col-md-2
+              label 체크인 날짜
+              input.form-control(type='date', id='checkin', name='checkin')
+            .col-xs-6.col-md-2
+              label 체크아웃 날짜 
+              input.form-control(type='date', id='checkout', name='checkout')
+            .col-xs-4.col-md-4
+              label 위치
+              input.form-control(type='text', name='city' id='city', placeholder='여행가려는 도시를 입력하세요')
+              ul.suggestcity
+            .col-xs-4.col-md-2
+              span.input-group-btn
+                button.btn.btn-default(type="submit") 검색하기
+
+      br
+      .row
+        .col-xs-6.col-md-3
+          a.thumbnail(href="#")
+            img(src="../images/seoul.jpg" alt="travel")
+        .col-xs-6.col-md-3
+          a.thumbnail(href="#")
+            img(src="../images/china.jpg" alt="travel")
+        .col-xs-6.col-md-3
+          a.thumbnail(href="#")
+              img(src="../images/greece.jpg" alt="travel")
+        .col-xs-6.col-md-3
+          a.thumbnail(href="#")
+              img(src="../images/japan.jpg" alt="travel")
+
+      h3 추천 여행지
+      .panel.panel-default
+          .panel-heading 예약 횟수를 기반으로 한 추천 숙소
+    
+      script(src= '/javascripts/autocomplete.js')   
+
  block footer

@@ -36,6 +36,7 @@ block content
                     th 국가
                     th 도시
                     th 등록일 
+                    th 조회수
             tbody
               each host in hosts
                 if(host.nickname!=currentUser.nickname)
@@ -47,6 +48,7 @@ block content
                       td=host.city
 
                       td=moment(host.date).format('YYYY년 MM월 DD일 HH:mm:ss')
-
+                      td= host.readNum
+                                   
 
       script(src= '/javascripts/autocomplete.js')    

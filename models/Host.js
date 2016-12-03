@@ -11,7 +11,9 @@ var hostSchema = new Schema({
     facility : String,
     rule : String,
     date : { type:Date, default:Date.now },
-    nickname : String
+    nickname : String,
+    readNum: {type: Number, default: 0},
+    reservedNum: {type: Number, default: 0}
     // 이미지도 추가 예정 
 }, {
   toJSON: { virtuals: true},
