@@ -4,6 +4,7 @@ var _ = require('lodash');
 var Host = require('../models/Host');
 var User = require('../models/User');
 var Reservation = require('../models/Reservation');
+var Favorite = require('../models/Favorite');
 
 var countries = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombi", "Comoros", "Congo (Brazzaville)", "Congo", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor (Timor Timur)", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia, The", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepa", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia and Montenegro", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
@@ -97,6 +98,16 @@ var cities = ['Shanghai, China',
                 'Wenzhou, China'
 ];
 
+function needAuth(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    req.flash('danger', '로그인을 하세요.');
+    res.redirect('back');
+  }
+}
+
+
 // suggesst nation 띄우기
 router.get('/suggest_nation', function(req, res, next){
     var typed = req.query.qu;
@@ -179,8 +190,11 @@ router.get('/nationsearch', function(req ,res, next){
 
 
 // 원하는 도시의 호스팅만 띄우기
-router.get('/citysearch', function(req ,res, next){
+router.get('/citysearch/', needAuth,  function(req ,res, next){
     Host.find({city: req.body.city}, function(err, hosts){
+        if(err){
+            return next(err);
+        }
         res.render('host/reservation', {hosts:hosts});
     });
 });
@@ -271,6 +285,31 @@ router.post('/reservation', function(req, res, next){
     });
 });
 
+// 즐겨찾기에 추가 
+router.post('/favorite/:hostid/:nickname', function(req, res, next){
+      var newFavorite = new Favorite({
+        address : req.body.address,
+        nation : req.body.nation,
+        city :  req.body.city,
+        explanation :  req.body.explanation,
+        title :  req.body.title,
+        fare :  req.body.fare,
+        rule :  req.body.rule,
+        facility :  req.body.facility,
+        reservedNum :  req.body.reservedNum,
+        host:  req.body.nickname,
+        guest: req.params.nickname
+      });
+      newFavorite.save(function(err){
+          if(err){
+              return next(err);
+          }
+          req.flash('success', '즐겨찾기에 추가했습니다');
+          res.redirect('back');
+      });
+    });
+
+
 // 호스트 페이지로 가기 
 router.get('/reservation/:hostid/show', function(req, res, error){
     Host.findById({_id : req.params.hostid}, function(err, host){
@@ -300,6 +339,12 @@ router.get('/reservation/mypage/profile/:guest_nickname', function(req, res, nex
         }
         res.render('mypage/profile', {user: user});
     });
+});
+
+router.get('/favorite/:id', function(req, res, next){
+    Favorite.findById({_id:req.params.id}, function(err, favorite){
+        res.render('host/favorite_show', {favorite : favorite});
+    })
 });
 
 

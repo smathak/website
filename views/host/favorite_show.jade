@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  .container
+    h1= favorite.title
+      
+    .list-group
+        a.list-group-item.active(href="#") 
+          h4.list-group-item-heading 숙소 상세 정보
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 제목
+          p.list-group-item-text #{favorite.title}
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 간단한 설명
+          p.list-group-item-text #{favorite.explanation}
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 국가
+          p.list-group-item-text #{favorite.nation}  
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 도시
+          p.list-group-item-text #{favorite.city}  
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 주소
+          p.list-group-item-text #{favorite.address}  
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 숙소 요금
+          p.list-group-item-text #{favorite.fare}  
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 편의시설
+          p.list-group-item-text #{favorite.facility}  
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 이용 규칙
+          p.list-group-item-text #{favorite.rule}  
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 등록자
+          p.list-group-item-text #{favorite.host} 
+        a.list-group-item(href="#") 
+          h4.list-group-item-heading 예약 횟수
+          p.list-group-item-text #{favorite.reservedNum} 
+
+      
+      

@@ -12,8 +12,8 @@ nav.navbar.navbar-default.navbar-fixed-top
 
      div.collapse.navbar-collapse#bs-example-navbar-collapse-1
       ul.nav.navbar-nav.navbar-right
-       .btn-group(role="group" aria-label="...")
           if(!currentUser)
+           .btn-group(role="group" aria-label="...")
             li
                 button.btn.btn-default.navbar-btn(type="button") 
                   a(href="/users/new") 회원가입
@@ -23,6 +23,7 @@ nav.navbar.navbar-default.navbar-fixed-top
           
         
            else if(currentUser)
+            .btn-group(role="group" aria-label="...")
               li
                   button.btn.btn-default.navbar-btn(type="button") 
                     a(href="/mypage") My Page

@@ -3,44 +3,59 @@ extends ../layout
 block content
   .container
     h1= host.title
+    form(action='/host/favorite/#{host.id}/#{currentUser.nickname}', method='POST' id='process')
 
-    .list-group
-      a.list-group-item.active(href="#") 
-        h4.list-group-item-heading 숙소 상세 정보
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 제목
-        p.list-group-item-text #{host.title}
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 간단한 설명
-        p.list-group-item-text #{host.explanation}
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 국가
-        p.list-group-item-text #{host.nation}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 도시
-        p.list-group-item-text #{host.city}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 주소
-        p.list-group-item-text #{host.address}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 숙소 요금
-        p.list-group-item-text #{host.fare}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 편의시설
-        p.list-group-item-text #{host.facility}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 이용 규칙
-        p.list-group-item-text #{host.rule}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 등록자
-        p.list-group-item-text #{host.nickname} 
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 예약 횟수
-        p.list-group-item-text #{host.reservedNum} 
+        input.form-control(type="hidden" id="title" name="title" aria-describedby="basic-addon1" value=host.title)
+        input.form-control(type="hidden" id="city" name="city" aria-describedby="basic-addon1" value=host.city)
+        input.form-control(type="hidden" id="nation" name="nation" aria-describedby="basic-addon1" value=host.nation)
+        input.form-control(type="hidden" id="explanation" name="explanation" aria-describedby="basic-addon1" value=host.explanation)
+        input.form-control(type="hidden" id="fare" name="fare" aria-describedby="basic-addon1" value=host.fare)
+        input.form-control(type="hidden" id="facility" name="facility" aria-describedby="basic-addon1" value=host.facility)
+        input.form-control(type="hidden" id="address" name="address" aria-describedby="basic-addon1" value=host.address)
+        input.form-control(type="hidden" id="rule" name="rule" aria-describedby="basic-addon1" value=host.rule)
+        input.form-control(type="hidden" id="reservedNum" name="reservedNum" aria-describedby="basic-addon1" value=host.reservedNum)
+        input.form-control(type="hidden" id="nickname" name="nickname" aria-describedby="basic-addon1" value=host.nickname)
+        
+        if(currentUser.nickname != host.nickname)
+            div.form-actions
+              .btn-group(role="group" aria-label="...")
+                a.button.btn.btn-default(href="/host/process/#{host.id}") 예약하기
+                button.btn.btn-default(type="submit") 즐겨찾기에 추가
+                
+      .list-group
+          a.list-group-item.active(href="#") 
+            h4.list-group-item-heading 숙소 상세 정보
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 제목
+            p.list-group-item-text #{host.title}
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 간단한 설명
+            p.list-group-item-text #{host.explanation}
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 국가
+            p.list-group-item-text #{host.nation}  
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 도시
+            p.list-group-item-text #{host.city}  
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 주소
+            p.list-group-item-text #{host.address}  
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 숙소 요금
+            p.list-group-item-text #{host.fare}  
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 편의시설
+            p.list-group-item-text #{host.facility}  
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 이용 규칙
+            p.list-group-item-text #{host.rule}  
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 등록자
+            p.list-group-item-text #{host.nickname} 
+          a.list-group-item(href="#") 
+            h4.list-group-item-heading 예약 횟수
+            p.list-group-item-text #{host.reservedNum} 
 
-
-     if(currentUser.nickname != host.nickname)
-       button.btn.btn-default(type="button")
-          a(href="/host/process/#{host.id}") 예약하기
 
     
+      

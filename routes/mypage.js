@@ -3,6 +3,7 @@ var router = express.Router();
 var Host = require('../models/Host');
 var User = require('../models/User');
 var Reservation = require('../models/Reservation');
+var Favorite = require('../models/Favorite');
 var _ = require('lodash');
 
 // 프로필 페이지 띄우기
@@ -66,7 +67,26 @@ router.delete('/cancel/:id', function(req, res, next){
             res.render('mypage/reservation_list', {reservations : reservations});
         });
     });
+});
 
+// 즐겨찾기 목록 띄우기 
+router.get('/favorite/:nickname', function(req, res, next){
+    Favorite.find({guest: req.params.nickname}, function(err, favorites){
+        res.render('mypage/favorite_list', {favorites : favorites});
+    });
+});
+
+// 즐겨 찾기 삭제
+router.delete('/favodelete/:id', function(req, res, next){
+    Favorite.findOneAndRemove({_id:req.params.id}, function(err, favorites){
+        if(err){
+            return next(err);
+        }
+    });
+    Favorite.find({}, function(err, favorites){
+        req.flash('succes', '즐겨찾기를 삭제했습니다.');
+        res.render('mypage/favorite_list', {favorites : favorites});
+    });
 });
 
 
