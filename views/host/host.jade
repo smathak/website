@@ -45,8 +45,10 @@ block content
         span.label.label-success 6. 주소
         .input-group
                 span.input-group-addon#basic-addon1 
-                input.form-control(type="text" id="address" name="address" placeholder="Address" aria-describedby="basic-addon1" value= host.address)
-                
+                input.form-control(type="text" id="sample5_address" name="address" placeholder="Address" aria-describedby="basic-addon1" value= host.address)
+                span.input-group-btn
+                  button.btn.btn-default(type="button" onclick="sample5_execDaumPostcode()" class="addressSearch") 주소 찾기
+                include map
         h4
         span.label.label-success 7. 숙소 요금
         .input-group
@@ -72,4 +74,14 @@ block content
                   button.btn.btn-default(type="submit") 호스팅 수정
                 else
                    button.btn.btn-default(type="submit") 호스팅 하기
+
+
   script(src= '/javascripts/autocomplete.js')    
+  
+  script(type='text/javascript').
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+            }
+        }).open();
