@@ -75,7 +75,7 @@ router.post('/', function(req, res, next) {
       if (err) {
         return next(err);
       } else {
-        req.flash('success', '가입이 완료되었습니다. 로그인 해주세요.');
+        req.flash('success', '로그인 하세요');
         res.redirect('/');
       }
     });

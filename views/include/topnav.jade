@@ -13,23 +13,11 @@ nav.navbar.navbar-default.navbar-fixed-top
      div.collapse.navbar-collapse#bs-example-navbar-collapse-1
        ul.nav.navbar-nav.navbar-right
          if(!currentUser)
-            li
-               button.btn.btn-default.navbar-btn(type="button") 
-                 a(href="/users/new") 회원가입
-            li
-                button.btn.btn-default.navbar-btn(type="button")
-                  a(href="/users/signin") 로그인
+                 a.navbar-brand(href="/users/new") 회원가입
+                 a.navbar-brand(href="/users/signin") 로그인 
         
           else if(currentUser)
-            li
-                button.btn.btn-default.navbar-btn(type="button") 
-                  a(href="/mypage") My Page
-            li
-              button.btn.btn-default.navbar-btn(type="button") 
-                a(href="/host") 호스팅하기
-            li
-              button.btn.btn-default.navbar-btn(type="button") 
-                a(href="/host/reservation") 예약하기
-            li
-                button.btn.btn-default.navbar-btn(type="button")
-                  a(href="/signout") 로그아웃
+                 a.navbar-brand(href="/mypage") My Page
+                 a.navbar-brand(href="/host") 호스팅하기
+                 a.navbar-brand(href="/host/reservation") 예약하기
+                 a.navbar-brand(href="/signout") 로그아웃
