@@ -3,39 +3,55 @@ extends ../layout
 block content
   .container
       h1= favorite.title
-        
-      .list-group
-          a.list-group-item.active(href="#") 
-            h4.list-group-item-heading 숙소 상세 정보
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 제목
-            p.list-group-item-text #{favorite.title}
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 간단한 설명
-            p.list-group-item-text #{favorite.explanation}
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 국가
-            p.list-group-item-text #{favorite.nation}  
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 도시
-            p.list-group-item-text #{favorite.city}  
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 주소
-            p.list-group-item-text #{favorite.address}  
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 숙소 요금
-            p.list-group-item-text #{favorite.fare}  
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 편의시설
-            p.list-group-item-text #{favorite.facility}  
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 이용 규칙
-            p.list-group-item-text #{favorite.rule}  
-          a.list-group-item(href="#") 
-            h4.list-group-item-heading 등록자
-            p.list-group-item-text #{favorite.host} 
 
-        
-        div.form-actions
-          .btn-group(role="group" aria-label="...")
-            a.button.btn.btn-default(href="/host/process/favorite/#{favorite.title}") 예약하기
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 제목
+        .panel-body #{favorite.title}
+
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 간단한 설명
+        .panel-body  #{favorite.explanation}
+
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 국가
+        .panel-body  #{favorite.nation}  
+      
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 도시
+        .panel-body  #{favorite.city} 
+
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 주소
+        input.panel-body.form-control(type="text" id="address_formap" value= favorite.address) 
+        div(id="map" style="width:100%;height:350px;") 
+        include map
+
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 숙소 요금
+        .panel-body #{favorite.fare}  
+
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 편의시설
+        .panel-body #{favorite.facility} 
+
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 이용 규칙
+        .panel-body #{favorite.rule} 
+
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 등록자
+        .panel-body #{favorite.nickname}
+
+    
+      div.form-actions
+        .btn-group(role="group" aria-label="...")
+          a.button.btn.btn-default(href="/host/process/favorite/#{favorite.title}") 예약하기

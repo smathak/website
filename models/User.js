@@ -6,6 +6,23 @@ var userSchema = new Schema({
     email:String,
     password:String,
     date : { type:Date, default:Date.now }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

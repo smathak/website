@@ -1,0 +1,11 @@
+extends ../layout
+
+block head
+    include mypage
+block content
+    .container
+    
+        .panel.panel-default
+            .panel-heading
+            h3.panel-title 제목
+            .panel-body #{favorite.title}

@@ -4,40 +4,63 @@ block content
   .container
     h1= reservation.title
 
-    .list-group
-  
-      a.list-group-item.active(href="#") 
-        h4.list-group-item-heading 예약 상세 정보
-      a.list-group-item(href="#{reservation.hostid}/show") 
-        h4.list-group-item-heading 숙소
-        p.list-group-item-text #{reservation.title}
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 도시
-        p.list-group-item-text #{reservation.city}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 주소
-        p.list-group-item-text #{reservation.address}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading checkin 날짜
-        p.list-group-item-text #{reservation.checkin}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading checkout 날짜
-        p.list-group-item-text #{reservation.checkout}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 숙박 인원
-        p.list-group-item-text #{reservation.number}  
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 호스트
-        p.list-group-item-text #{reservation.host} 
-      a.list-group-item(href="#") 
-        h4.list-group-item-heading 예약 요청 결과
-        if(reservation.answer)
-           p.list-group-item-text #{reservation.answer}
-        else
-          p.list-group-item-text 아직 호스트가 응답하지 않았습니다. 
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 예약 상세 정보
+     a.panel-body(href="#{reservation.hostid}/show") #{reservation.title}
 
-      a(href='mypage/profile/#{reservation.guest}')
-          h4.list-group-item-text #{reservation.guest}게스트 프로필 보기  
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 국가
+     .panel-body  #{reservation.nation}  
+  
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 도시
+     .panel-body  #{reservation.city} 
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 주소
+    input.panel-body.form-control(type="text" id="address_formap" value= reservation.address) 
+    div(id="map" style="width:100%;height:350px;") 
+    include ../host/map
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title checkin 날짜
+     .panel-body #{reservation.checkin}  
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title checkout 날짜
+     .panel-body #{reservation.checkout} 
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 숙박 인원
+     .panel-body #{reservation.number} 
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 호스트
+     .panel-body #{reservation.host} 
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 예약 요청 결과
+     .panel-body #{reservation.answer}
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 예약 요청 결과
+     .panel-body #{reservation.answer}
+
+    .panel.panel-default
+     .panel-heading
+      h3.panel-title 게스트 프로필 보기  
+     a.panel-body(href='mypage/profile/#{reservation.guest}') #{reservation.guest}
+
         
     
 
