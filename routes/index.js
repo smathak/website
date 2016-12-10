@@ -20,10 +20,16 @@ router.post('/signin', function(req, res, next) {
     } else if (!user) {
       req.flash('danger', '존재하지 않는 사용자 입니다.');
       res.redirect('back');
-    } else if (user.password !== req.body.password) {
+    }
+    // else if (req.body.password !== user.password) {
+    //   req.flash('danger', '비밀번호가 일치하지 않습니다.');
+    //   res.redirect('back');
+    // }
+    else if (!user.validatePassword(req.body.password)) {
       req.flash('danger', '비밀번호가 일치하지 않습니다.');
       res.redirect('back');
-    } else {
+    }
+     else {
       req.session.user = user; 
       req.flash('success', '로그인 되었습니다.');
       res.redirect('/');

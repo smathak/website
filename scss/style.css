@@ -41,11 +41,3 @@ p{
 span.label{
   display: inline-block;
 }
-
-.list-group#profile{
-  width: 30%;
-}
-
-#process{
-  width: 50%;
-}

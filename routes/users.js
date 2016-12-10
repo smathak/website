@@ -69,7 +69,10 @@ router.post('/', function(req, res, next) {
       nickname: req.body.nickname,
       email: req.body.email,
     });
-    newUser.password = req.body.password;
+    if(req.body.password == req.body.passwordComrifm){
+      newUser.password = newUser.generateHash(req.body.password);
+    }
+    
 
     newUser.save(function(err) {
       if (err) {
@@ -88,10 +91,18 @@ router.get('/signin', function(req, res, next) {
 });
 
 // 회원 관리 목록 페이지 띄우기 
-router.get('/userlist', function(req, res, next) { 
- User.find({}, function(err, users){
-  res.render('users/userlist', {users : users, messages: req.flash()}); 
+router.get('/userlist/:id', function(req, res, next) {
+ User.findById({_id:req.params.id}, function(err, user){
+   if (user.admin){
+      User.find({}, function(err, users){
+        res.render('users/userlist', {users : users, messages: req.flash()}); 
+      });
+   }else{
+     req.flash('danger', "관리자만 접속할 수 있습니다.");
+     res.redirect('back');
+   }
  });
+
 });
 
 // 회원 탈퇴 
@@ -139,7 +150,7 @@ router.delete('/delete/:id', function(req, res, next){
 // 회원 정보 수정 창 띄우기
 router.get('/edit/:id', function(req, res, next){
   User.findById({_id: req.params.id}, function(err, user){
-    res.render('users/new', {user:user});
+    res.render('mypage/profileEdit', {user:user});
   });
 });
 
@@ -147,7 +158,24 @@ router.get('/edit/:id', function(req, res, next){
 router.put('/:id', function(req, res, next){
   User.findById({_id: req.params.id}, function(err, user){
     user.email = req.body.email;
-    user.password = req.body.password;
+    user.gender = req.body.gender;
+    user.birthday = req.body.birthday;
+    user.phone = req.body.phone;
+    user.language = req.body.language;
+    user.currency = req.body.currency;
+    user.myCity = req.body.myCity;
+    user.school = req.body.school;
+    user.job = req.body.job;
+    user.address = req.body.sample5_address;
+    user.companyEmail = req.body.companyEmail;
+    user.admin = req.body.admin;
+
+    if(req.body.password === req.body.passwordConfirm){
+      if(req.body.password){ // 수정할 때도 hash 로
+        user.password = user.generateHash(req.body.password);
+      }
+    }
+
     user.save(function(err, user){
       if(err){
         return next(err);

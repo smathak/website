@@ -50,11 +50,6 @@ span.label{
   width: 30%;
 }
 
-#process{
-  width: 50%
-}
-
-
 
 .suggestnation {
     position: static;
@@ -96,3 +91,6 @@ span.label{
       background-color: mediumblue;
    }
 
+.input-group.input-group-lg{
+  width: 60%;
+}

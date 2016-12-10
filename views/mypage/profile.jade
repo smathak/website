@@ -12,13 +12,67 @@ block content
         else 
             h1 My profile
 
-        ul.list-group#profile
             if user 
-                li.list-group-item.list-group-item-success Nickname: #{user.nickname}
-                li.list-group-item.list-group-item-info EMail: #{user.email}
+               .panel.panel-default
+                  .panel-heading
+                    h3.panel-title 필수 사항
+                  .panel-body 
+                    ul
+                        li Nickname: #{user.nickname}
+                        li 전화전호: #{user.phone}
+                        li 선호하는 언어: #{user.language}
+                        li 선호하는 통화 단위: #{user.currency}
+                        li 거주 도시: #{user.myCity}
+                        li 자기소개: #{user.introduction}
+
+                .panel.panel-default
+                  .panel-heading
+                    h3.panel-title 선택 사항
+                  .panel-body        
+                    ul
+                        li 학교: #{user.school}
+                        li 직업: #{user.job}
+                        li 거주지 시간대: #{user.job}
+                        li 언어: #{user.language}
+                        li 긴급 연락처: #{user.phone}
             else
-                li.list-group-item.list-group-item-success Nickname: #{currentUser.nickname}
-                li.list-group-item.list-group-item-info EMail: #{currentUser.email}
+                .panel.panel-default
+                  .panel-heading
+                    h3.panel-title 필수 사항
+                  .panel-body 
+                    ul
+                        li Nickname: #{currentUser.nickname}
+                        li 성별: #{currentUser.gender}
+                        li 생년 월일: #{currentUser.birthday}
+                        li 이메일 주소: #{currentUser.email}
+                        li 전화전호: #{currentUser.phone}
+                        li 선호하는 언어: #{currentUser.language}
+                        li 선호하는 통화 단위: #{currentUser.currency}
+                        li 거주 도시: #{currentUser.myCity}
+                        li 자기소개: #{currentUser.introduction}
+
+                .panel.panel-default
+                  .panel-heading
+                    h3.panel-title 선택 사항
+                  .panel-body        
+                    ul
+                        li 학교: #{currentUser.school}
+                        li 직업: #{currentUser.job}
+                        li 거주지 시간대: #{currentUser.job}
+                        li 언어: #{currentUser.language}
+                        li 긴급 연락처: #{currentUser.phone}
+                        li 배송지: #{currentUser.address}
+
+                .panel.panel-default
+                  .panel-heading
+                    h3.panel-title 출장 프로그램
+                  .panel-body
+                    ul
+                        li 회사 이메일 주소: #{currentUser.companyEmail}
+
+
+
+
             
         if(!user)
             div.form-actions

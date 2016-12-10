@@ -8,7 +8,8 @@ nav.navbar.navbar-default.navbar-fixed-top
         span.icon-bar
         span.icon-bar
       a.navbar-brand(href="/") Main
-      a.navbar-brand(href="/users/userlist") 회원 목록
+      if currentUser
+         a.navbar-brand(href="/users/userlist/#{currentUser.id}") 회원 목록
 
      div.collapse.navbar-collapse#bs-example-navbar-collapse-1
        ul.nav.navbar-nav.navbar-right

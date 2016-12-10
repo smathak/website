@@ -29,5 +29,6 @@ block content
                         td= host.city
                         td= moment(host.date).format('YYYY년 MM월 DD일 HH:mm:ss')
                         td
+                         .btn-group(role="group" aria-label="...")
                           a.btn.btn-xs.btn-default(href='/host/edit/#{host.id}') 호스팅 수정
                           a.btn.btn-xs.btn-default(href='/host/cancel/#{host.id}?_method=DELETE') 호스팅 취소

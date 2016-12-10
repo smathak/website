@@ -1,0 +1,147 @@
+extends ../layout
+
+block content
+  .container
+
+    h1 프로필 수정
+
+    form(action='/users/#{user.id}?_method=PUT', method='POST')
+        .input-group.input-group-lg
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title 필수 사항
+            .panel-body
+              .input-group
+                span.input-group-addon#sizing-addon1 Email 
+                input.form-control(type="email" id="email" name="email" placeholder="Email" aria-describedby="sizing-addon1", required, value= user.email)
+              .input-group  
+                span.input-group-addon#sizing-addon1 성별
+                select.form-control(name='gender')
+                    .dropdown
+                        button.btn.btn-default.dropdown-toggle(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                            Dropdown 성별
+                            span.caret
+                        ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                            li
+                                option(value="male") 남
+                            li
+                                option(value="female") 여
+     
+              .input-group                 
+                span.input-group-addon#sizing-addon1 생년월일 
+                input.form-control(type="text" id="brirthday" name="brirthday" placeholder="0000년 00월 00일" aria-describedby="sizing-addon1", value= user.birthday)
+              .input-group
+                span.input-group-addon#sizing-addon1 전화번호
+                input.form-control(type="text" id="phone" name="phone" placeholder="Phone" aria-describedby="sizing-addon1")
+              .input-group 
+                span.input-group-addon#sizing-addon1 선호하는 언어 
+                select.form-control(name='language')
+                    .dropdown
+                        button.btn.btn-default.dropdown-toggle(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                            Dropdown 선호하는 언어 
+                            span.caret
+                        ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                            li
+                                option(value="korean") Korean
+                            li
+                                option(value="Enligsh") Enligsh
+                            li
+                                option(value="Chinese") Chinese
+                            li
+                                option(value="Japanese") Japanese
+                            li
+                                option(value="Russian") Russian
+                            li
+                                option(value="Greeks") Greeks
+                            li
+                                option(value="Latin") Latin
+                            li
+                                option(value="Spanish") Spanish
+                            li
+                                option(value="German") German
+                            li
+                                option(value="France") France
+                            li
+                                option(value="Roman") Roman
+              .input-group
+                span.input-group-addon#sizing-addon1 선호하는 통화 단위
+                select.form-control(name='currency')
+                    .dropdown
+                        button.btn.btn-default.dropdown-toggle(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                            Dropdown 선호하는 통화 단위
+                            span.caret
+                        ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                            li
+                                option(value="KRW") KRW
+                            li
+                                option(value="JPY") JPY
+                            li
+                                option(value="AED") AED
+                            li
+                                option(value="GBP") GBP
+                            li
+                                option(value="INR") INR
+                            li
+                                option(value="DKK") DKK
+                            li
+                                option(value="CZK") CZK
+                            li
+                                option(value="COP") COP
+                            li
+                                option(value="HUF") HUF
+
+              .input-group
+                span.input-group-addon#sizing-addon1 거주 도시
+                input.form-control(type="text" id="myCity" name="myCity" placeholder="예: 프랑스 파리, 한국 서울, 일본 도쿄, 중국 상하이 등등" aria-describedby="basic-addon1" value= user.myCity)
+              .input-group
+                span.input-group-addon#sizing-addon1 자기 소개
+                textarea.form-control(id="introduction" name="introduction" placeholder="자기 소개" aria-describedby="sizing-addon1")= user.introduction
+
+
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title 선택 사항
+            .panel-body
+              .input-group
+                span.input-group-addon#sizing-addon1 학교
+                input.form-control(type="text" id="shcool" name="shcool" placeholder="School" aria-describedby="sizing-addon1" value=user.shcool)
+              .input-group
+                span.input-group-addon#sizing-addon1 직업
+                input.form-control(type="text" id="job" name="job" placeholder="Job" aria-describedby="sizing-addon1" )
+              .input-group
+                span.input-group-addon#sizing-addon1 배송지
+                input.form-control(type="text" id="sample5_address" name="address" placeholder="Address" aria-describedby="basic-addon1" value= user.address)
+                div(id="address" style="width:100%;height:350px;margin-top:10px;display:none")
+                include ../host/address
+                span.input-group-btn
+                  button.btn.btn-default(type="button" onclick="sample5_execDaumPostcode()" class="addressSearch") 주소 찾기
+                  
+       
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title 출장 프로그램
+            .panel-body
+              .input-group
+                span.input-group-addon#sizing-addon1 회사 이메일 주소
+                input.form-control(type="email" id="companyEmail" name="companyEmail" placeholder="회사 이메일 주소" aria-describedby="sizing-addon1")
+
+           .panel.panel-default
+            .panel-heading
+              h3.panel-title 관리자
+            .panel-body
+              .input-group
+                span.input-group-addon#sizing-addon1 관리자 지정
+                input.form-control(type="text" id="admin" name="admin" placeholder="관리자 지정" aria-describedby="sizing-addon1" value=user.admin)
+         
+           .panel.panel-default
+            .panel-heading
+                h3.panel-title 비밀번호 변경 
+            .panel-body
+               .input-group
+                span.input-group-addon#sizing-addon1 비밀번호 
+                input.form-control(type="password" id="password" name="password" placeholder="비밀번호 " aria-describedby="sizing-addon1")
+                span.input-group-addon#sizing-addon1 비밀번호 확인 
+                input.form-control(type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호 확인" aria-describedby="sizing-addon1")
+      
+        div.form-actions
+                button.btn.btn-default(type="submit") 수정 완료 

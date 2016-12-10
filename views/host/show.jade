@@ -16,11 +16,7 @@ block content
         input.form-control(type="hidden" id="reservedNum" name="reservedNum" aria-describedby="basic-addon1" value=host.reservedNum)
         input.form-control(type="hidden" id="nickname" name="nickname" aria-describedby="basic-addon1" value=host.nickname)
         
-        if(currentUser.nickname != host.nickname)
-            div.form-actions
-              .btn-group(role="group" aria-label="...")
-                a.button.btn.btn-default(href="/host/process/#{host.id}") 예약하기
-                button.btn.btn-default(type="submit") 즐겨찾기에 추가
+
 
        .panel.panel-default
         .panel-heading
@@ -73,3 +69,13 @@ block content
         .panel-heading
           h3.panel-title 예약 횟수
         .panel-body #{host.reservedNum} 
+
+       if(currentUser.nickname != host.nickname)
+            div.form-actions
+              .btn-group(role="group" aria-label="...")
+                a.button.btn.btn-default(href="/host/process/#{host.id}") 예약하기
+                button.btn.btn-default(type="submit") 즐겨찾기에 추가
+
+       if currentUser.nickname == host.nickname
+            div.form-actions
+                a.button.btn.btn-default(href='/host/edit/#{host.id}') 호스팅 수정

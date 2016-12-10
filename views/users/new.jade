@@ -3,13 +3,9 @@ extends ../layout
 block content
   .container
 
-    if user
-     h1 개인 정보 수정
-    else 
-     h1 Sign up
+    h1 Sign up
 
-    form(action= user ? '/users/#{user.id}?_method=PUT' : '/users', method='POST')
-      if !user
+    form(action= '/users', method='POST')
         .input-group.input-group-lg
           span.input-group-addon#sizing-addon1 Nickname
           input.form-control(type="text" id="nickname" name="nickname" placeholder="Nickname" aria-describedby="sizing-addon1", required)
@@ -22,20 +18,7 @@ block content
         .input-group.input-group-lg
           span.input-group-addon#sizing-addon1 Password Confirmation
           input.form-control(type="password" id="password_confirmation" name="password_confirmation" placeholder="Password Confirmation" aria-describedby="sizing-addon1", required)
-       else
-        .input-group.input-group-lg
-          span.input-group-addon#sizing-addon1 Email
-          input.form-control(type="email" id="email" name="email" placeholder="Email" aria-describedby="sizing-addon1", required, value=user.email)
-        .input-group.input-group-lg 
-          span.input-group-addon#sizing-addon1 Password
-          input.form-control(type="password" id="password" name="password" placeholder="Password" aria-describedby="sizing-addon1", required)
-        .input-group.input-group-lg
-          span.input-group-addon#sizing-addon1 Password Confirmation
-          input.form-control(type="password" id="password_confirmation" name="password_confirmation" placeholder="Password Confirmation" aria-describedby="sizing-addon1", required)
       
-       div.form-actions
-          .btn-group(role="group" aria-label="...")
-          if !user
-            button.btn.btn-default(type="submit") 회원가입
-          else
-            button.btn.btn-default(type="submit") 수정 완료
+        div.form-actions
+            .btn-group(role="group" aria-label="...")
+              button.btn.btn-default(type="submit") 회원가입
