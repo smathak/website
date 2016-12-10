@@ -125,13 +125,14 @@ block content
                 span.input-group-addon#sizing-addon1 회사 이메일 주소
                 input.form-control(type="email" id="companyEmail" name="companyEmail" placeholder="회사 이메일 주소" aria-describedby="sizing-addon1")
 
-           .panel.panel-default
-            .panel-heading
-              h3.panel-title 관리자
-            .panel-body
-              .input-group
-                span.input-group-addon#sizing-addon1 관리자 지정
-                input.form-control(type="text" id="admin" name="admin" placeholder="관리자 지정" aria-describedby="sizing-addon1" value=user.admin)
+           if currentUser.nickname === "admin"                     
+            .panel.panel-default
+                .panel-heading
+                   h3.panel-title 관리자
+                .panel-body
+                    .input-group
+                        span.input-group-addon#sizing-addon1 관리자 지정
+                        input.form-control(type="text" id="admin" name="admin" placeholder="관리자 지정" aria-describedby="sizing-addon1" value=user.admin)
          
            .panel.panel-default
             .panel-heading

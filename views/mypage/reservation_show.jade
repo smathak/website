@@ -49,19 +49,19 @@ block content
     .panel.panel-default
      .panel-heading
       h3.panel-title 예약 요청 결과
-     .panel-body #{reservation.answer}
+     if !reservation.answer
+        .panel-body 아직 호스트가 응답하지 않았습니다. 
+       else
+        .panel-body #{reservation.answer}
 
-    .panel.panel-default
-     .panel-heading
-      h3.panel-title 예약 요청 결과
-     .panel-body #{reservation.answer}
 
     .panel.panel-default
      .panel-heading
       h3.panel-title 게스트 프로필 보기  
-     a.panel-body(href='mypage/profile/#{reservation.guest}') #{reservation.guest}
+     a.panel-body(href='mypage/profileEdit/#{reservation.guest}') #{reservation.guest}
 
         
-    
+    if reservation.guest == currentUser.nickname
+         a.button.btn.btn-default(href="/mypage/cancel/#{reservation.id}?_method=DELETE") 예약 취소
 
     
