@@ -5,6 +5,7 @@ var Host = require('../models/Host');
 var User = require('../models/User');
 var Reservation = require('../models/Reservation');
 var Favorite = require('../models/Favorite');
+var Reply = require('../models/Reply');
 
 var countries = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombi", "Comoros", "Congo (Brazzaville)", "Congo", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor (Timor Timur)", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia, The", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepa", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia and Montenegro", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
@@ -234,9 +235,13 @@ router.put('/:id', function(req, res, next){
 
 // 예약하기에서 호스팅 되어있는 글 보여주기
 router.get('/:id', function(req, res, error){
+    var host;
     Host.findByIdAndUpdate({_id : req.params.id}, {$inc: {readNum:1}}, function(err, host){
-        res.render('host/show', {host : host, messages : req.flash()});
+        Reply.find({hostId : req.params.id}, function(err, replies){
+           res.render('host/show', {host : host, replies: replies, messages : req.flash()});
+        });
     }); 
+
 });
 
 // 예약 정보 확인하기
@@ -246,11 +251,35 @@ router.get('/reservation/:id', function(req, res, error){
     }); 
 });
 
+// 댓글 달기
+router.post('/reply', function(req, res, next){
+    var newReply = new Reply({
+        content: req.body.content,
+        reply_nickname: req.body.nickname,
+        hostId: req.body.hostId
+    });
+    newReply.save(function(err){
+        if(err){
+            return next(err);
+        }
+    });
+    res.redirect('back');
+});
+
+// 댓글 삭제
+router.delete('/deleteReply/:id', function(req, res, next){
+    Reply.findByIdAndRemove({_id:req.params.id}, function(err){
+        if(err){
+            return next(err);
+        }
+         res.redirect('back');
+    });
+});
 
 // 예약하는 절차 보여주는 페이지로 가기
 router.get('/process/:id', function(req, res, next){
     Host.findById({_id : req.params.id}, function(err, host){
-        res.render('host/process', {host : host});
+          res.render('host/process', {host : host});
     });
 });
 

@@ -17,7 +17,6 @@ block content
         input.form-control(type="hidden" id="nickname" name="nickname" aria-describedby="basic-addon1" value=host.nickname)
         
 
-
        .panel.panel-default
         .panel-heading
           h3.panel-title 제목
@@ -79,3 +78,61 @@ block content
        if currentUser.nickname == host.nickname
             div.form-actions
                 a.button.btn.btn-default(href='/host/edit/#{host.id}') 호스팅 수정
+ 
+    form(action='/host/reply', method='POST') 
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title 이 숙소를 이용한 게스트들의 후기
+          .panel-body 
+            label 후기 입력
+            .input-group
+              span.input-group-addon(id="basic-addon3") #{currentUser.nickname}
+              input.form-control(type='text', name='content' id='content', placeholder='이용 후기를 입력해보세요')
+   
+              input.form-control(type='hidden', name='nickname' id='nickname', value= currentUser.nickname)
+              input.form-control(type='hidden', name='hostId' id='hostId', value= host.id)
+              ul.suggestcity
+              span.input-group-btn
+                button.btn.btn-default(type="submit") 댓글달기
+
+             table.table
+                thead
+                    tr
+                        th 게스트명
+                        th 댓글 내용
+
+                tbody
+                   each reply in replies
+                     tr
+                        if host.nickname == reply.reply_nickname
+                          td 호스트
+                        else
+                          td=reply.reply_nickname
+                        td=reply.content
+                        td
+                          if currentUser.nickname == reply.reply_nickname
+                              a.btn.btn-xs.btn-default(href="/host/deleteReply/#{reply.id}?_method=DELETE") 댓글 삭제
+                          if currentUser.nickname == host.nickname
+                              a.btn.btn-xs.btn-default(class="respond_write") 댓글 달기
+                    tr
+                      .input-group
+                         td
+                            span.input-group-addon(id="host") 호스트
+                         td
+                            input.form-control(type='text', name='content' class='respond' placeholder='답변을 입력하세요')
+                         td
+                            button.btn.btn-default(type="submit" id="check") 댓글달기
+ 
+    form#secessionForm(style='display:none', method="POST") 
+    
+    script(type='text/javascript').
+      $('#host').hide(); 
+      $('#check').hide(); 
+      $('.respond').hide();
+      $(".respond_write").click(function(e) {
+        $('#host').toggle(); 
+        $('.respond').toggle();
+        $('#check').toggle(); 
+
+      }); 
+                     
