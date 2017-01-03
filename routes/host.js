@@ -113,10 +113,10 @@ function needAuth(req, res, next) {
 router.get('/suggest_nation', function(req, res, next){
     var typed = req.query.qu;
     // countries 객체를 nation_name에 넘겨줌 
-    // nation_name 중에서 
+    // countries 중에서 
     var ret = _.filter(countries, function(countryname){
-        // nation_name을 소문자로 바꾸고 
-        // ajax로 부터 받은 antion을 소문자로 바꾼 곳의 index에 있으면 반환함
+        // countryname을 소문자로 바꾸고 
+        // ajax로 부터 받은 typed 소문자로 바꾼 곳의 index에 있으면 반환함
         return countryname.toLowerCase().indexOf(typed.toLowerCase()) > -1;
     });
 
